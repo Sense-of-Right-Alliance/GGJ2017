@@ -1,0 +1,4 @@
+ - Revolver
+ - Wrench
+ - Knife
+ - Rope
