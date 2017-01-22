@@ -1,11 +1,8 @@
- - Cabins
- - Dining Room
- - Rec Room
- - Swimming Pool Deck
- - Side Decks
- - Pool Locker Room
- - Toilet
- - Ballroom
- - Bridge
- - Engine Room
- - Cleaning Closet
+ - Cabins - 
+ - Dining Room - has the Tycoon in it- Has wine in it
+ - Rec Room - has the Critic in it - 
+ - Ballroom - has Hat in it
+ - Art Gallery - has the Trendsetter in it - has Modern Art in it
+ - Hallway
+ - Closet - Has toy in it
+ - Casino - has the Politician in it -
