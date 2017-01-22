@@ -6,3 +6,6 @@
  - Hallway
  - Closet - Has toy in it
  - Casino - has the Politician in it -
+
+
+THE cabins, hallway, ballroom and recroom have storage capability
