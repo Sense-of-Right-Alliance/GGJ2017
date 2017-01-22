@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GGJ2017.Managers
+namespace GGJ2017.Interface
 {
     public class ButtonManager
     {
