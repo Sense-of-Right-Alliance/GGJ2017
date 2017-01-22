@@ -1,0 +1,11 @@
+ - Cabins
+ - Dining Room
+ - Rec Room
+ - Swimming Pool Deck
+ - Side Decks
+ - Pool Locker Room
+ - Toilet
+ - Ballroom
+ - Bridge
+ - Engine Room
+ - Cleaning Closet

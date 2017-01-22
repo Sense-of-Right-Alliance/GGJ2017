@@ -1,0 +1,4 @@
+ - Check inventory
+ - Talk to person
+ - Move
+ - Interact with room object
