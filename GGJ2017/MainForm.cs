@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using GGJ2017.Managers;
 
 namespace GGJ2017
 {
@@ -15,6 +14,8 @@ namespace GGJ2017
     {
         public ListBox HistoryListBox { get { return this.historyListBox; } }
         public TableLayoutPanel ButtonTablePanel { get { return this.buttonPanel; } }
+        public Label DialogueLabel { get { return this.dialogueLabel; } }
+        public PictureBox PortraitPictureBox { get { return this.portraitPictureBox; } }
 
         private GameManager _gameManager;
 
