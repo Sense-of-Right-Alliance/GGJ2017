@@ -11,7 +11,8 @@ namespace GGJ2017.Characters
         public string Id { get; }
         public string Name { get; }
 
-        public string PortraitLocation { get; set; }
+        public string BefriendedPortraitLocation { get; set; }
+        public string OffendedPortraitLocation { get; set; }
 
         public string BefriendedDialogue { get; set; }
         public string OffendedDialogue { get; set; }

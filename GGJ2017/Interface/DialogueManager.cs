@@ -30,14 +30,16 @@ namespace GGJ2017.Interface
 
         public void Display(Character character, DialogueType type)
         {
+            _portraitPictureBox.Visible = true;
+
             if (type == DialogueType.Befriended)
             {
-                PortraitLocation = character.PortraitLocation;
+                PortraitLocation = character.BefriendedPortraitLocation;
                 Text = character.BefriendedDialogue;
             }
             else if (type == DialogueType.Offended)
             {
-                PortraitLocation = character.PortraitLocation;
+                PortraitLocation = character.OffendedPortraitLocation;
                 Text = character.OffendedDialogue;
             }
             else
@@ -48,6 +50,8 @@ namespace GGJ2017.Interface
 
         public void Display(string text)
         {
+            _portraitPictureBox.Visible = false;
+
             Clear();
             Text = text;
         }

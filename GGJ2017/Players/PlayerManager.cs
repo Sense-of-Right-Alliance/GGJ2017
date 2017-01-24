@@ -11,6 +11,8 @@ namespace GGJ2017.Players
         public const int JerkMoves = 3;
         public const int FriendMoves = 3;
 
+        public bool CanSeeInventory { get; set; }
+
         public PlayerType CurrentPlayer { get; private set; } = PlayerType.Jerk;
 
         public int MovesRemaining { get; set; } = JerkMoves;
@@ -27,6 +29,7 @@ namespace GGJ2017.Players
                 CurrentPlayer = PlayerType.Jerk;
                 MovesRemaining = JerkMoves;
             }
+            CanSeeInventory = false;
         }
     }
 }

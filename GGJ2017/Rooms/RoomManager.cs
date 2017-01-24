@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using GGJ2017.Items;
 
 namespace GGJ2017.Rooms
 {
@@ -21,14 +23,18 @@ namespace GGJ2017.Rooms
         public Room RecRoom { get { return GetRoom(RoomType.RecRoom); } }
         public Room Closet { get { return GetRoom(RoomType.Closet); } }
 
-        public Room CurrentRoom { get; private set; }
+        private Room _currentRoom;
+        public Room CurrentRoom { get { return _currentRoom; }  set { _currentRoom = value; _roomLabel.Text = value.Name; } }
 
-        public RoomManager()
+        private Label _roomLabel;
+
+        public RoomManager(Label roomLabel)
         {
+            _roomLabel = roomLabel;
+
             CreateRooms();
             ConnectRooms();
-
-            CurrentRoom = Cabins;
+            AddItemsToRooms();
         }
 
         public Room GetRoom(RoomType type)
@@ -66,6 +72,14 @@ namespace GGJ2017.Rooms
             ArtGallery.ConnectTo(Ballroom);
             DiningRoom.ConnectTo(Deck);
             Ballroom.ConnectTo(Deck);
+        }
+
+        private void AddItemsToRooms()
+        {
+            DiningRoom.Items.Add(ItemManager.Items[ItemType.Wine]);
+            Ballroom.Items.Add(ItemManager.Items[ItemType.Hat]);
+            ArtGallery.Items.Add(ItemManager.Items[ItemType.ModernArt]);
+            Closet.Items.Add(ItemManager.Items[ItemType.Toy]);
         }
 
         public void MoveToRoom(Room room)

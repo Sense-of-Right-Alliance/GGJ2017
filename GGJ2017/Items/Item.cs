@@ -8,5 +8,13 @@ namespace GGJ2017.Items
 {
     public class Item
     {
+        public string Name { get; }
+        public ItemType ItemType { get; }
+
+        public Item(string name, ItemType itemType)
+        {
+            Name = name;
+            ItemType = ItemType;
+        }
     }
 }

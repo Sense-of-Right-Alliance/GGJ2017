@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GGJ2017.Characters;
+using GGJ2017.Items;
 
 namespace GGJ2017.Rooms
 {
@@ -16,7 +17,9 @@ namespace GGJ2017.Rooms
         public IEnumerable<Room> UnlockedConnections { get { return _connections.Where(r => !r.Locked); } }
 
         private List<Character> _characters = new List<Character>();
-        public List<Character> Characters { get; }
+        public IEnumerable<Character> Characters { get { return _characters; } }
+
+        public List<Item> Items { get; } = new List<Item>();
 
         public bool Locked { get; set; }
 
