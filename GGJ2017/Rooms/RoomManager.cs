@@ -35,17 +35,19 @@ namespace GGJ2017.Rooms
 
             CreateRooms();
             ConnectRooms();
-            AddItemsToRooms();
-            AddCharactersToRooms();
+
+            AddItems();
+            AddContainers();
+            AddCharacters();
         }
 
         public void Reset()
         {
-            foreach (var room in Rooms)
-            {
-                room.Items.Clear();
-            }
-            AddItemsToRooms();
+            ClearItems();
+            AddItems();
+
+            ClearContainers();
+            AddContainers();
         }
 
         public Room GetRoom(RoomType type)
@@ -85,7 +87,15 @@ namespace GGJ2017.Rooms
             Ballroom.ConnectTo(Deck);
         }
 
-        private void AddItemsToRooms()
+        private void ClearItems()
+        {
+            foreach (var room in Rooms)
+            {
+                room.Items.Clear();
+            }
+        }
+
+        private void AddItems()
         {
             DiningRoom.Items.Add(ItemManager.Items[ItemType.Wine]);
             Ballroom.Items.Add(ItemManager.Items[ItemType.Hat]);
@@ -93,7 +103,23 @@ namespace GGJ2017.Rooms
             Closet.Items.Add(ItemManager.Items[ItemType.Toy]);
         }
 
-        private void AddCharactersToRooms()
+        private void ClearContainers()
+        {
+            foreach (var room in Rooms)
+            {
+                room.Containers.Clear();
+            }
+        }
+
+        private void AddContainers()
+        {
+            Cabins.Containers.Add(new Container { Name = "Dresser" });
+            Hallway.Containers.Add(new Container { Name = "Garbage Can" });
+            Ballroom.Containers.Add(new Container { Name = "Table", Action = "under the" });
+            RecRoom.Containers.Add(new Container { Name = "Lockers" });
+        }
+
+        private void AddCharacters()
         {
             DiningRoom.Characters.Add(CharacterManager.Characters[CharacterType.Tycoon]);
             RecRoom.Characters.Add(CharacterManager.Characters[CharacterType.Critic]);
@@ -101,7 +127,7 @@ namespace GGJ2017.Rooms
             Casino.Characters.Add(CharacterManager.Characters[CharacterType.Politician]);
         }
 
-        public void MoveToRoom(Room room)
+        public void MoveTo(Room room)
         {
             CurrentRoom = room;
         }

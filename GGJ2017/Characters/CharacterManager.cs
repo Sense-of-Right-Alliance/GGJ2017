@@ -16,7 +16,7 @@ namespace GGJ2017.Characters
                 new Character()
                 {
                     Id = "critic",
-                    Name = "The Critic",
+                    Name = "Critic",
                     BefriendedItem = ItemType.ModernArt,
                     OffendedItem = ItemType.Hat,
                     BefriendedPortrait = "CriticHappy",
@@ -30,7 +30,7 @@ namespace GGJ2017.Characters
                 new Character()
                 {
                     Id = "politician",
-                    Name = "The Politician",
+                    Name = "Politician",
                     BefriendedItem = ItemType.Wine,
                     OffendedItem = ItemType.Toy,
                     BefriendedPortrait = "PoliticianHappy",
@@ -44,7 +44,7 @@ namespace GGJ2017.Characters
                 new Character()
                 {
                     Id = "trendsetter",
-                    Name = "The Trendsetter",
+                    Name = "Trendsetter",
                     BefriendedItem = ItemType.Hat,
                     OffendedItem = ItemType.Wine,
                     BefriendedPortrait = "TrendHappy",
@@ -58,7 +58,7 @@ namespace GGJ2017.Characters
                 new Character()
                 {
                     Id = "tycoon",
-                    Name = "The Tycoon",
+                    Name = "Tycoon",
                     BefriendedItem = ItemType.Toy,
                     OffendedItem = ItemType.ModernArt,
                     BefriendedPortrait = "TycoonHappy",

@@ -35,9 +35,14 @@ namespace GGJ2017.Items
             }
         }
 
-        public bool RemoveItem(Item item)
+        public bool RemoveItem(Item item, bool updateInterface)
         {
             return _items.Remove(item);
+
+            if (updateInterface)
+            {
+                ShowInventory(true);
+            }
         }
 
         public bool HasItem(ItemType type)

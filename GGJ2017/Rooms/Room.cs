@@ -18,6 +18,7 @@ namespace GGJ2017.Rooms
         
         public List<Character> Characters { get; } = new List<Character>();
         public List<Item> Items { get; } = new List<Item>();
+        public List<Container> Containers { get; } = new List<Container>();
 
         public bool Locked { get; set; }
 

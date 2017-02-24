@@ -17,6 +17,7 @@ namespace GGJ2017.Interface
         }
 
         private ListBox _listBox;
+        private Label _historyLabel;
 
         private List<LogEntry> _jerkEntries = new List<LogEntry>();
         private List<LogEntry> _friendEntries = new List<LogEntry>();
@@ -25,9 +26,10 @@ namespace GGJ2017.Interface
 
         public Func<string, int, string> Formatter = (entry, index) => string.Format("{0:d2}: {1}", index + 1, entry);
 
-        public LogManager(ListBox listBox)
+        public LogManager(ListBox listBox, Label historyLabel)
         {
             _listBox = listBox;
+            _historyLabel = historyLabel;
         }
 
         public void Reset()
@@ -40,6 +42,7 @@ namespace GGJ2017.Interface
         public void Clear()
         {
             _listBox.Items.Clear();
+            _historyLabel.Text = "History";
         }
 
         public void Refresh(PlayerType type)
@@ -50,10 +53,12 @@ namespace GGJ2017.Interface
             if (type == PlayerType.Friend)
             {
                 entries = _friendEntries;
+                _historyLabel.Text = "History of a Friend";
             }
             else if (type == PlayerType.Jerk)
             {
                 entries = _jerkEntries;
+                _historyLabel.Text = "History of a Jerk";
             }
 
             foreach (var entry in entries)

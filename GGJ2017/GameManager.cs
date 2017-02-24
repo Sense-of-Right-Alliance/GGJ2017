@@ -24,9 +24,11 @@ namespace GGJ2017
 
         private GameState _state = GameState.NotStarted;
 
+        private Container _hidingInContainer = null;
+
         public GameManager(MainForm mainForm)
         {
-            _logManager = new LogManager(mainForm.HistoryListBox);
+            _logManager = new LogManager(mainForm.HistoryListBox, mainForm.HistoryLabel);
             _buttonManager = new ButtonManager(mainForm.ButtonTablePanel);
             _dialogueManager = new DialogueManager(mainForm.PortraitPictureBox, mainForm.DialogueLabel);
             _roomManager = new RoomManager(mainForm.RoomLabel);
@@ -37,7 +39,6 @@ namespace GGJ2017
 
         public void StartGame()
         {
-            _logManager.Reset();
             _state = GameState.JerkTurn;
             _roomManager.CurrentRoom = _roomManager.Cabins;
 
@@ -83,6 +84,12 @@ namespace GGJ2017
         {
             _buttonManager.ClearButtons();
 
+            if (_hidingInContainer != null)
+            {
+                AddHideItemButtons();
+                return;
+            }
+
             switch (_state)
             {
                 case GameState.NotStarted:
@@ -105,9 +112,20 @@ namespace GGJ2017
                     AddTurnButtons();
                     break;
                 case GameState.Ended:
-                    _buttonManager.AddButton("Restart game", () => StartGame());
+                    _buttonManager.AddButton("Reset game", () => ResetGame());
                     break;
             }
+        }
+
+        private void AddHideItemButtons()
+        {
+            var container = _hidingInContainer;
+
+            foreach (var item in ItemManager.Items.Values.OrderBy(i => i.Name))
+            {
+                _buttonManager.AddButton($"Hide {item.Name.ToLower()} {container.Action} {container.Name.ToLower()}", () => HideItem(item.ItemType, container));
+            }
+            _buttonManager.AddButton($"Don't hide an item", () => CancelHideItem());
         }
 
         private void AddTurnButtons()
@@ -123,24 +141,80 @@ namespace GGJ2017
                 
                 if (_inventoryManager.HasItem(itemType)) // maybe also check if _playerManager.CanSeeInventory?
                 {
-                    _buttonManager.AddButton($"Give {ItemManager.Items[itemType].Name} to {character.Name}", () => GiveItem(character, itemType));
+                    _buttonManager.AddButton($"Give {ItemManager.Items[itemType].Name.ToLower()} to the {character.Name.ToLower()}", () => GiveItem(character, itemType));
                 }
                 else
                 {
-                    _buttonManager.AddButton($"{character.Name} is in this room", null);
+                    _buttonManager.AddButton($"You can see a {character.Name.ToLower()} in this room", null);
                 }
             }
             foreach (var connectedRoom in room.UnlockedConnections)
             {
-                _buttonManager.AddButton($"Move to {connectedRoom.Name}", () => MoveToRoom(connectedRoom));
+                _buttonManager.AddButton($"Move to {connectedRoom.Name.ToLower()}", () => MoveToRoom(connectedRoom));
             }
             foreach (var item in room.Items)
             {
                 _buttonManager.AddButton($"Pick up {item.Name.ToLower()}", () => PickUpItem(room, item));
             }
+            foreach (var container in room.Containers)
+            {
+                _buttonManager.AddButton($"Search for items {container.Action} {container.Name.ToLower()}", () => SearchForItems(container));
+                _buttonManager.AddButton($"Hide an item {container.Action} {container.Name.ToLower()}", () => HideItem(container));
+            }
             _buttonManager.AddButton("Check inventory", () => CheckInventory());
 
             _buttonManager.AddButton("Pass turn", () => UseAllMoves());
+        }
+
+        private void SearchForItems(Container container)
+        {
+            if (container.Items.Any())
+            {
+                var items = container.RemoveItems();
+
+                foreach (var item in items)
+                {
+                    _inventoryManager.AddItem(item, _playerManager.CanSeeInventory);
+                }
+                
+                var itemList = string.Join(", ", items.Select(i => i.Name.ToLower()));
+                _logManager.Add($"Searched for items {container.Action} {container.Name.ToLower()}: found {itemList}", _playerManager.CurrentPlayer);
+            }
+            else
+            {
+                _logManager.Add($"Searched for items {container.Action} {container.Name.ToLower()}: found none", _playerManager.CurrentPlayer);
+            }
+            UseMove();
+        }
+
+        private void HideItem(Container container)
+        {
+            _hidingInContainer = container;
+            UpdateButtons();
+        }
+
+        private void CancelHideItem()
+        {
+            _hidingInContainer = null;
+            UpdateButtons();
+        }
+
+        private void HideItem(ItemType itemType, Container container)
+        {
+            if (_inventoryManager.HasItem(itemType))
+            {
+                var item = _inventoryManager.Items.FirstOrDefault(i => i.ItemType == itemType);
+
+                _inventoryManager.RemoveItem(item, _playerManager.CanSeeInventory);
+                container.AddItem(item);
+                _logManager.Add($"Hid {item.Name.ToLower()} {container.Action} {container.Name.ToLower()}", _playerManager.CurrentPlayer);
+            }
+            else
+            {
+                _logManager.Add($"You do not have {ItemManager.Items[itemType].Name.ToLower()} to hide", _playerManager.CurrentPlayer);
+            }
+            _hidingInContainer = null;
+            UseMove();
         }
 
         private void GiveItem(Character character, ItemType itemType)
@@ -148,13 +222,13 @@ namespace GGJ2017
             if (character.BefriendedItem == itemType)
             {
                 _dialogueManager.Display(character, DialogueType.Befriended);
-                _logManager.Add($"Befriended {character.Name}! You won!", _playerManager.CurrentPlayer);
+                _logManager.Add($"Befriended the {character.Name.ToLower()}! You won!", _playerManager.CurrentPlayer);
                 EndGame();
             }
             else if (character.OffendedItem == itemType)
             {
                 _dialogueManager.Display(character, DialogueType.Offended);
-                _logManager.Add($"Offended {character.Name}! You won!", _playerManager.CurrentPlayer);
+                _logManager.Add($"Offended the {character.Name.ToLower()}! You won!", _playerManager.CurrentPlayer);
                 EndGame();
             }
             else
@@ -229,8 +303,8 @@ namespace GGJ2017
 
         private void MoveToRoom(Room room)
         {
-            _roomManager.MoveToRoom(room);
-            LogPlayerAction($"Moved to {room.Name}.");
+            _roomManager.MoveTo(room);
+            LogPlayerAction($"Moved to {room.Name.ToLower()}.");
             UseMove();
         }
 
@@ -273,10 +347,17 @@ namespace GGJ2017
         private void EndGame()
         {
             _state = GameState.Ended;
+            UpdateButtons();
+        }
+
+        private void ResetGame()
+        {
             _roomManager.Reset();
             _inventoryManager.Reset();
             _playerManager.Reset();
-            UpdateButtons();
+            _logManager.Reset();
+            _state = GameState.NotStarted;
+            UpdateInterface(true);
         }
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="Characters\CharacterManager.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Interface\DialogueManager.cs" />
+    <Compile Include="Items\Container.cs" />
     <Compile Include="Items\InventoryManager.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\ItemManager.cs" />

@@ -18,6 +18,7 @@ namespace GGJ2017
         public Label DialogueLabel { get { return this.dialogueLabel; } }
         public PictureBox PortraitPictureBox { get { return this.portraitPictureBox; } }
         public Label RoomLabel { get { return this.roomLabel; } }
+        public Label HistoryLabel { get { return this.historyLabel; } }
 
         private GameManager _gameManager;
 
