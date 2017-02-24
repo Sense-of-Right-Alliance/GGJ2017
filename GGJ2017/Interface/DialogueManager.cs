@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace GGJ2017.Interface
 
         private string Text { set { _dialogueLabel.Text = value; } }
         private string PortraitLocation { set { _portraitPictureBox.ImageLocation = value; } }
+
+        private const string PortraitPrefix = "Portraits";
 
         public DialogueManager(PictureBox portraitPictureBox, Label dialogueLabel)
         {
@@ -34,12 +37,12 @@ namespace GGJ2017.Interface
 
             if (type == DialogueType.Befriended)
             {
-                PortraitLocation = character.BefriendedPortraitLocation;
+                PortraitLocation = Path.Combine(PortraitPrefix, character.BefriendedPortrait + ".png");
                 Text = character.BefriendedDialogue;
             }
             else if (type == DialogueType.Offended)
             {
-                PortraitLocation = character.OffendedPortraitLocation;
+                PortraitLocation = Path.Combine(PortraitPrefix, character.OffendedPortrait + ".png");
                 Text = character.OffendedDialogue;
             }
             else

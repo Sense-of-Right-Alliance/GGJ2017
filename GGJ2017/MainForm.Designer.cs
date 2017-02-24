@@ -32,6 +32,7 @@
             this.buttonPanel = new System.Windows.Forms.TableLayoutPanel();
             this.roomLabel = new System.Windows.Forms.Label();
             this.inventoryPanel = new System.Windows.Forms.Panel();
+            this.inventoryTablePanel = new System.Windows.Forms.TableLayoutPanel();
             this.inventoryLabel = new System.Windows.Forms.Label();
             this.infoPanel = new System.Windows.Forms.Panel();
             this.dialoguePanel = new System.Windows.Forms.Panel();
@@ -41,7 +42,6 @@
             this.historyPanel = new System.Windows.Forms.Panel();
             this.historyListBox = new System.Windows.Forms.ListBox();
             this.historyLabel = new System.Windows.Forms.Label();
-            this.inventoryTablePanel = new System.Windows.Forms.TableLayoutPanel();
             this.actionPanel.SuspendLayout();
             this.inventoryPanel.SuspendLayout();
             this.infoPanel.SuspendLayout();
@@ -97,6 +97,20 @@
             this.inventoryPanel.Size = new System.Drawing.Size(252, 547);
             this.inventoryPanel.TabIndex = 3;
             // 
+            // inventoryTablePanel
+            // 
+            this.inventoryTablePanel.ColumnCount = 1;
+            this.inventoryTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.inventoryTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.inventoryTablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inventoryTablePanel.Location = new System.Drawing.Point(10, 43);
+            this.inventoryTablePanel.Name = "inventoryTablePanel";
+            this.inventoryTablePanel.RowCount = 1;
+            this.inventoryTablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.inventoryTablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 494F));
+            this.inventoryTablePanel.Size = new System.Drawing.Size(232, 494);
+            this.inventoryTablePanel.TabIndex = 3;
+            // 
             // inventoryLabel
             // 
             this.inventoryLabel.Dock = System.Windows.Forms.DockStyle.Top;
@@ -118,17 +132,17 @@
             this.infoPanel.Location = new System.Drawing.Point(252, 0);
             this.infoPanel.Name = "infoPanel";
             this.infoPanel.Padding = new System.Windows.Forms.Padding(10);
-            this.infoPanel.Size = new System.Drawing.Size(464, 235);
+            this.infoPanel.Size = new System.Drawing.Size(464, 335);
             this.infoPanel.TabIndex = 4;
             // 
             // dialoguePanel
             // 
             this.dialoguePanel.Controls.Add(this.dialogueLabel);
             this.dialoguePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dialoguePanel.Location = new System.Drawing.Point(140, 43);
+            this.dialoguePanel.Location = new System.Drawing.Point(136, 43);
             this.dialoguePanel.Name = "dialoguePanel";
             this.dialoguePanel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.dialoguePanel.Size = new System.Drawing.Size(314, 182);
+            this.dialoguePanel.Size = new System.Drawing.Size(318, 282);
             this.dialoguePanel.TabIndex = 1;
             // 
             // dialogueLabel
@@ -138,16 +152,18 @@
             this.dialogueLabel.Location = new System.Drawing.Point(5, 0);
             this.dialogueLabel.Margin = new System.Windows.Forms.Padding(10);
             this.dialogueLabel.Name = "dialogueLabel";
-            this.dialogueLabel.Size = new System.Drawing.Size(304, 182);
+            this.dialogueLabel.Size = new System.Drawing.Size(308, 282);
             this.dialogueLabel.TabIndex = 0;
             this.dialogueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // portraitPictureBox
             // 
             this.portraitPictureBox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.portraitPictureBox.ImageLocation = "";
             this.portraitPictureBox.Location = new System.Drawing.Point(10, 43);
             this.portraitPictureBox.Name = "portraitPictureBox";
-            this.portraitPictureBox.Size = new System.Drawing.Size(130, 182);
+            this.portraitPictureBox.Size = new System.Drawing.Size(126, 282);
+            this.portraitPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.portraitPictureBox.TabIndex = 0;
             this.portraitPictureBox.TabStop = false;
             // 
@@ -168,10 +184,10 @@
             this.historyPanel.Controls.Add(this.historyListBox);
             this.historyPanel.Controls.Add(this.historyLabel);
             this.historyPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.historyPanel.Location = new System.Drawing.Point(252, 235);
+            this.historyPanel.Location = new System.Drawing.Point(252, 335);
             this.historyPanel.Name = "historyPanel";
             this.historyPanel.Padding = new System.Windows.Forms.Padding(10);
-            this.historyPanel.Size = new System.Drawing.Size(464, 312);
+            this.historyPanel.Size = new System.Drawing.Size(464, 212);
             this.historyPanel.TabIndex = 5;
             // 
             // historyListBox
@@ -181,7 +197,7 @@
             this.historyListBox.Location = new System.Drawing.Point(10, 43);
             this.historyListBox.Name = "historyListBox";
             this.historyListBox.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.historyListBox.Size = new System.Drawing.Size(444, 259);
+            this.historyListBox.Size = new System.Drawing.Size(444, 159);
             this.historyListBox.TabIndex = 2;
             // 
             // historyLabel
@@ -195,20 +211,6 @@
             this.historyLabel.TabIndex = 6;
             this.historyLabel.Text = "History";
             this.historyLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // inventoryTablePanel
-            // 
-            this.inventoryTablePanel.ColumnCount = 1;
-            this.inventoryTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.inventoryTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.inventoryTablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.inventoryTablePanel.Location = new System.Drawing.Point(10, 43);
-            this.inventoryTablePanel.Name = "inventoryTablePanel";
-            this.inventoryTablePanel.RowCount = 1;
-            this.inventoryTablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.inventoryTablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 494F));
-            this.inventoryTablePanel.Size = new System.Drawing.Size(232, 494);
-            this.inventoryTablePanel.TabIndex = 3;
             // 
             // MainForm
             // 

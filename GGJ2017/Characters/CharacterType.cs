@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace GGJ2017.Characters
 {
-    public enum DialogueType
+    public enum CharacterType
     {
         Unknown,
-        Offended,
-        Befriended,
+        Critic,
+        Politician,
+        Trendsetter,
+        Tycoon,
     }
 }

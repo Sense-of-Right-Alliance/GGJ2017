@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GGJ2017.Characters;
 using GGJ2017.Interface;
 using GGJ2017.Items;
 using GGJ2017.Players;
@@ -103,12 +104,32 @@ namespace GGJ2017
                 case GameState.FriendTurn:
                     AddTurnButtons();
                     break;
+                case GameState.Ended:
+                    _buttonManager.AddButton("Restart game", () => StartGame());
+                    break;
             }
         }
 
         private void AddTurnButtons()
         {
             var room = _roomManager.CurrentRoom;
+            foreach (var character in room.Characters)
+            {
+                var itemType = character.BefriendedItem;
+                if (_playerManager.CurrentPlayer == PlayerType.Jerk)
+                {
+                    itemType = character.OffendedItem;
+                }
+                
+                if (_inventoryManager.HasItem(itemType)) // maybe also check if _playerManager.CanSeeInventory?
+                {
+                    _buttonManager.AddButton($"Give {ItemManager.Items[itemType].Name} to {character.Name}", () => GiveItem(character, itemType));
+                }
+                else
+                {
+                    _buttonManager.AddButton($"{character.Name} is in this room", null);
+                }
+            }
             foreach (var connectedRoom in room.UnlockedConnections)
             {
                 _buttonManager.AddButton($"Move to {connectedRoom.Name}", () => MoveToRoom(connectedRoom));
@@ -120,6 +141,26 @@ namespace GGJ2017
             _buttonManager.AddButton("Check inventory", () => CheckInventory());
 
             _buttonManager.AddButton("Pass turn", () => UseAllMoves());
+        }
+
+        private void GiveItem(Character character, ItemType itemType)
+        {
+            if (character.BefriendedItem == itemType)
+            {
+                _dialogueManager.Display(character, DialogueType.Befriended);
+                _logManager.Add($"Befriended {character.Name}! You won!", _playerManager.CurrentPlayer);
+                EndGame();
+            }
+            else if (character.OffendedItem == itemType)
+            {
+                _dialogueManager.Display(character, DialogueType.Offended);
+                _logManager.Add($"Offended {character.Name}! You won!", _playerManager.CurrentPlayer);
+                EndGame();
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void SwapOut()
@@ -227,6 +268,15 @@ namespace GGJ2017
             }
 
             _logManager.Add("-- end of turn -- ", _playerManager.CurrentPlayer, false);
+        }
+
+        private void EndGame()
+        {
+            _state = GameState.Ended;
+            _roomManager.Reset();
+            _inventoryManager.Reset();
+            _playerManager.Reset();
+            UpdateButtons();
         }
     }
 }

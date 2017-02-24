@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GGJ2017.Characters;
 using GGJ2017.Items;
 
 namespace GGJ2017.Rooms
@@ -34,6 +35,16 @@ namespace GGJ2017.Rooms
 
             CreateRooms();
             ConnectRooms();
+            AddItemsToRooms();
+            AddCharactersToRooms();
+        }
+
+        public void Reset()
+        {
+            foreach (var room in Rooms)
+            {
+                room.Items.Clear();
+            }
             AddItemsToRooms();
         }
 
@@ -80,6 +91,14 @@ namespace GGJ2017.Rooms
             Ballroom.Items.Add(ItemManager.Items[ItemType.Hat]);
             ArtGallery.Items.Add(ItemManager.Items[ItemType.ModernArt]);
             Closet.Items.Add(ItemManager.Items[ItemType.Toy]);
+        }
+
+        private void AddCharactersToRooms()
+        {
+            DiningRoom.Characters.Add(CharacterManager.Characters[CharacterType.Tycoon]);
+            RecRoom.Characters.Add(CharacterManager.Characters[CharacterType.Critic]);
+            ArtGallery.Characters.Add(CharacterManager.Characters[CharacterType.Trendsetter]);
+            Casino.Characters.Add(CharacterManager.Characters[CharacterType.Politician]);
         }
 
         public void MoveToRoom(Room room)

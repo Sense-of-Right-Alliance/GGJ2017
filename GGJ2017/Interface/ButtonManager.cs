@@ -42,7 +42,14 @@ namespace GGJ2017.Interface
 
             // create button and assign action to its click event
             var button = new Button { Text = text, Dock = DockStyle.Fill };
-            button.Click += (sender, e) => action();
+            if (action == null)
+            {
+                button.Enabled = false;
+            }
+            else
+            {
+                button.Click += (sender, e) => action();
+            }
 
             // add button to panel
             _buttonPanel.Controls.Add(button);

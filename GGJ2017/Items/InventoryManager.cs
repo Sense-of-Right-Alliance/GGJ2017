@@ -20,7 +20,7 @@ namespace GGJ2017.Items
             _inventoryPanel = inventoryPanel;
         }
 
-        public void ClearInventory()
+        public void Reset()
         {
             _items.Clear();
         }

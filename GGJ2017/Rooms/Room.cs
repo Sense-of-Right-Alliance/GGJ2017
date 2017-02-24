@@ -15,10 +15,8 @@ namespace GGJ2017.Rooms
         private List<Room> _connections { get; } = new List<Room>();
         public IEnumerable<Room> Connections { get { return _connections; } }
         public IEnumerable<Room> UnlockedConnections { get { return _connections.Where(r => !r.Locked); } }
-
-        private List<Character> _characters = new List<Character>();
-        public IEnumerable<Character> Characters { get { return _characters; } }
-
+        
+        public List<Character> Characters { get; } = new List<Character>();
         public List<Item> Items { get; } = new List<Item>();
 
         public bool Locked { get; set; }

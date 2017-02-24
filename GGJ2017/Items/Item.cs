@@ -14,7 +14,7 @@ namespace GGJ2017.Items
         public Item(string name, ItemType itemType)
         {
             Name = name;
-            ItemType = ItemType;
+            ItemType = itemType;
         }
     }
 }

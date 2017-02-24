@@ -31,5 +31,11 @@ namespace GGJ2017.Players
             }
             CanSeeInventory = false;
         }
+
+        public void Reset()
+        {
+            CurrentPlayer = PlayerType.Jerk;
+            MovesRemaining = JerkMoves;
+        }
     }
 }
