@@ -70,12 +70,15 @@ namespace GGJ2017
                     _dialogueManager.Display(TextManager.GameStateText[_state]);
                     break;
                 case GameState.FriendTurn:
-                    _dialogueManager.Clear();
-                    _logManager.Refresh(PlayerType.Friend);
-                    break;
                 case GameState.JerkTurn:
-                    _dialogueManager.Clear();
-                    _logManager.Refresh(PlayerType.Jerk);
+                    string text = _playerManager.CurrentPlayer == PlayerType.Jerk ? TextManager.JerkInstructions : TextManager.FriendInstructions;
+
+                    text = text
+                        .Replace("{character}", _playerManager.CurrentTargetCharacter.Name.ToLower())
+                        .Replace("{item}", _playerManager.CurrentTargetItem.Name.ToLower());
+
+                    _dialogueManager.Display(text);
+                    _logManager.Refresh(_playerManager.CurrentPlayer);
                     break;
             }
         }
@@ -139,7 +142,7 @@ namespace GGJ2017
                     itemType = character.OffendedItem;
                 }
                 
-                if (_inventoryManager.HasItem(itemType)) // maybe also check if _playerManager.CanSeeInventory?
+                if (_playerManager.CurrentTargetCharacter.Id == character.Id && _inventoryManager.HasItem(itemType)) // maybe also check if _playerManager.CanSeeInventory?
                 {
                     _buttonManager.AddButton($"Give {ItemManager.Items[itemType].Name.ToLower()} to the {character.Name.ToLower()}", () => GiveItem(character, itemType));
                 }

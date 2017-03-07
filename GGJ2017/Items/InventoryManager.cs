@@ -11,7 +11,7 @@ namespace GGJ2017.Items
     {
         private List<Item> _items = new List<Item>();
         
-        public IEnumerable<Item> Items { get { return _items; } }
+        public IEnumerable<Item> Items { get { return _items.OrderBy(i => i.Name); } }
 
         private TableLayoutPanel _inventoryPanel;
 
@@ -37,12 +37,14 @@ namespace GGJ2017.Items
 
         public bool RemoveItem(Item item, bool updateInterface)
         {
-            return _items.Remove(item);
+            bool success = _items.Remove(item);
 
             if (updateInterface)
             {
                 ShowInventory(true);
             }
+
+            return success;
         }
 
         public bool HasItem(ItemType type)
